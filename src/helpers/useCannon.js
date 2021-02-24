@@ -1,22 +1,16 @@
 import * as CANNON from "cannon-es";
-import {
-  useState,
-  useEffect,
-  useContext,
-  useRef,
-  createContext,
-} from "react";
+import { useState, useEffect, useContext, useRef, createContext } from "react";
 import { useFrame, useThree } from "react-three-fiber";
 import cannonDebugger from "cannon-es-debugger";
 
 // Cannon-world context provider
 const context = createContext();
-export function Provider({ children }) {
+export function Physics({ children }) {
   // Set up physics
   const { scene } = useThree();
   const [world] = useState(() => new CANNON.World());
   useEffect(() => {
-    cannonDebugger(scene, world.bodies);
+    // cannonDebugger(scene, world.bodies);
     world.broadphase = new CANNON.NaiveBroadphase();
     world.solver.iterations = 20;
     world.gravity.set(0, 0, -9.82);
