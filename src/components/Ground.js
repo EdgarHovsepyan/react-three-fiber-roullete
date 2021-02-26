@@ -1,14 +1,14 @@
 import { useLoader } from "react-three-fiber";
-import * as THREE from "three";
+import { TextureLoader, RepeatWrapping } from "three";
 import { Plane } from "cannon-es";
 import { useCannon } from "../helpers/useCannon";
 
 import texture from "../assets/textures/tableTexture.jpg";
 
 const Ground = ({ position }) => {
-  const map = useLoader(THREE.TextureLoader, texture);
-  map.wrapS = THREE.RepeatWrapping;
-  map.wrapT = THREE.RepeatWrapping;
+  const map = useLoader(TextureLoader, texture);
+  map.wrapS = RepeatWrapping;
+  map.wrapT = RepeatWrapping;
   map.repeat.set(1, 1);
   // Register plane as a physics body with zero mass
   const ref = useCannon({ mass: 0 }, (body) => {

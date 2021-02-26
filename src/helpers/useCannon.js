@@ -12,12 +12,39 @@ export function Physics({ children }) {
   useEffect(() => {
     // cannonDebugger(scene, world.bodies);
     world.broadphase = new CANNON.NaiveBroadphase();
+    world.defaultContactMaterial.contactEquationStiffness = 1e8;
+    world.defaultContactMaterial.contactEquationRelaxation = 1.5;
     world.solver.iterations = 20;
     world.gravity.set(0, 0, -9.82);
   }, [world]);
 
   // Run world stepper every frame
-  useFrame(() => world.step(1 / 60));
+
+  const fixedTimeStep = 1.0 / 60.0; // seconds
+  const maxSubSteps = 3;
+  let lastTime;
+
+  // useFrame((time = 0) => {
+  //   if (lastTime !== undefined) {
+  //     let dt = (time - lastTime) / 1000;
+  //     world.step(fixedTimeStep, dt, maxSubSteps);
+  //   }
+  //   lastTime = time;
+  // });
+
+  // Run world stepper every frame
+
+  const simloop = (time) => {
+    requestAnimationFrame(simloop);
+    if (lastTime !== undefined) {
+      const dt = (time - lastTime) / 1000;
+      world.step(fixedTimeStep, dt, maxSubSteps);
+    }
+    lastTime = time;
+  };
+
+  simloop();
+
   // Distribute world via context
   return <context.Provider value={world} children={children} />;
 }

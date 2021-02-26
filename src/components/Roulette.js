@@ -1,9 +1,11 @@
-import { Vec3 } from "cannon-es";
+import { Vec3, Material } from "cannon-es";
 import { useCannon } from "../helpers/useCannon";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { threeToCannon } from "three-to-cannon";
 import { Vector3, Math as ThreeMath } from "three";
 import { useLoader } from "react-three-fiber";
+
+import cannonDebugger from "cannon-es-debugger";
 
 const { degToRad } = ThreeMath;
 const Roulette = () => {
@@ -28,7 +30,7 @@ const Roulette = () => {
       });
     } else if (child.isMesh && child.name === "Sphere") {
       sphere = child.clone();
-      sphere.position.set(0, 3, 3);
+      sphere.position.set(0, 3.8, 2);
       sphere.scale.set(1.5, 1.5, 1.5);
       sphere.geometry.center();
       sphere.geometry.computeVertexNormals();
@@ -43,17 +45,24 @@ const Roulette = () => {
       });
     }
   });
+
+  let cylinderMaterial = new Material();
+
   const ref = useCannon({ mass: 0 }, (body) => {
     body.addShape(cylinderShape);
     body.position.copy(cylinder.position);
     body.quaternion.copy(cylinder.quaternion);
+    body.material = cylinderMaterial;
   });
+
+  let sphereMaterial = new Material();
 
   const ref2 = useCannon({ mass: 1 }, (body) => {
     body.addShape(sphereShape);
-    body.velocity = new Vec3(10, -1, 0);
+    body.velocity.x = 30;
     body.position.copy(sphere.position);
     body.quaternion.copy(sphere.quaternion);
+    body.material = sphereMaterial;
   });
 
   return (

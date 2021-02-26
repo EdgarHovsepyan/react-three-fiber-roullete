@@ -1,12 +1,16 @@
 import React, { Suspense } from "react";
-import { PCFSoftShadowMap, ACESFilmicToneMapping } from "three";
 import { Canvas } from "react-three-fiber";
-import { Physics } from "./helpers/useCannon";
-import Ground from "./components/Ground";
-import Roulette from "./components/Roulette";
+
+import { PCFSoftShadowMap, ACESFilmicToneMapping } from "three";
 
 import CameraControls from "./components/OrbitControls/";
 import Camera from "./components/PerspectiveCamera/";
+
+import { Physics } from "./helpers/useCannon";
+
+import Ground from "./components/Ground";
+import Roulette from "./components/Roulette";
+import Stats from "./components/Stats";
 
 import "./App.css";
 
@@ -19,7 +23,6 @@ const App = () => {
       concurrent
       colorManagement
       onCreated={({ gl }) => {
-        gl.setClearColor("#120000");
         gl.shadowMap.type = PCFSoftShadowMap;
         gl.toneMapping = ACESFilmicToneMapping;
         gl.toneMappingExposure = 0.8;
@@ -44,6 +47,7 @@ const App = () => {
           <Roulette />
         </Suspense>
       </Physics>
+      <Stats />
     </Canvas>
   );
 };

@@ -10,7 +10,14 @@ const CameraControls = () => {
     gl: { domElement },
   } = useThree();
   useFrame(() => ref.current.update());
-  return <orbitControls ref={ref} args={[camera, domElement]} />;
+  return (
+    <orbitControls
+      ref={ref}
+      args={[camera, domElement]}
+      enableDamping
+      dampingFactor={0.085}
+    />
+  );
 };
 
 export default CameraControls;
