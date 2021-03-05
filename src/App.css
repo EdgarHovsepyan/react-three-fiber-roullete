@@ -23,8 +23,8 @@ body {
   position: fixed;
   overflow: hidden;
   overscroll-behavior-y: none;
-  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial,
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir,
+    helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial, sans-serif;
   color: black;
 }
 
@@ -42,4 +42,21 @@ canvas {
   position: absolute;
   top: 0;
   overflow: hidden;
+}
+
+#playButton {
+  background-image: url(./assets/textures/play.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  z-index: 1;
+  background-color: transparent;
+  outline: none;
+  border-color: #1d2f2f;
+  cursor: pointer;
 }
